@@ -1,0 +1,45 @@
+table Table
+	lineageTag: 6270032a-ef62-4cff-a025-deb4235f343a
+
+	column Country
+		dataType: string
+		lineageTag: 2001a208-8a07-4aad-bae5-a46587a3dcfe
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Capital
+		dataType: string
+		lineageTag: a503d2d2-37ce-4cd7-bf71-dc86cd733076
+		summarizeBy: none
+		sourceColumn: Capital
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Index Code'
+		dataType: int64
+		formatString: 0
+		lineageTag: b9b78a89-8c93-41aa-8146-36ccf04b997d
+		summarizeBy: count
+		sourceColumn: Index Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 8354840b-f197-4480-8e8a-bb69d61d2eb2
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Table = m
+		mode: import
+		source =
+				let
+				  Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("bY5LC8IwEIT/Ssm5CD7vsXoRtOADDyGHtQYbH9mSB8V/70QRPHgYdthvmF2lhEwherpbEqWoyJ2M99kOobox5AB0qTKicwZ1jNRnM4I27GNbyIfxtvnkDjuJ/ZFCa90lsisWgwqL8d/wijpyIHu+PRlzAsnwvYiGfGdu7BVdcNNfvE0hvJ9ec2i4h5lBy+S5M0LrFw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Country = _t, Capital = _t, #"Index Code" = _t, Region = _t]),
+				  #"Changed column type" = Table.TransformColumnTypes(Source, {{"Country", type text}, {"Capital", type text}, {"Index Code", Int64.Type}, {"Region", type text}})
+				in
+				  #"Changed column type"
+
